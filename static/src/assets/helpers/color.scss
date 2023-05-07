@@ -1,0 +1,8 @@
+@use "sass:list";
+@import "../base/theme";
+
+@each $name, $pair in $colors {
+  .has-text-#{$name} {
+    color: list.nth($pair, 1);
+  }
+}

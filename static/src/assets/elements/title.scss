@@ -1,0 +1,27 @@
+@import "../base/theme";
+
+.title,
+.subtitle,
+.subsubtitle {
+  margin-bottom: $gap;
+}
+
+.title {
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+}
+
+.subtitle {
+  font-size: $font-size-medium;
+  font-weight: $font-weight;
+}
+
+.subsubtitle {
+  font-size: $font-size;
+  font-weight: $font-weight;
+}
+
+.title + .subtitle,
+.subtitle + .subsubtitle {
+  margin-top: -$gap;
+}

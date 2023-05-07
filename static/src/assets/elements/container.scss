@@ -1,0 +1,8 @@
+@import "../base/theme";
+
+.container {
+  margin: 0 auto;
+  max-width: $desktop;
+  padding: $padding;
+  width: 100%;
+}

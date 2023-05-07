@@ -1,0 +1,708 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "auth.proto",
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "Auth"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/auth/access": {
+      "post": {
+        "summary": "NewAccess generates a new access token from a refresh token.",
+        "operationId": "Auth_NewAccess",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/authNewAccessResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/authNewAccessRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/v1/auth/reset-password": {
+      "post": {
+        "summary": "ResetPwd resets the password associated to an email address. A code that\ncan be obtained through the SendResetPwd must be given in order to verify\nthe identity of the user.",
+        "operationId": "Auth_ResetPwd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/authSignInResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/authResetPwdRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/v1/auth/reset-password/check": {
+      "post": {
+        "summary": "CheckResetPwd checks if the code given by VerifyResetPwd is valid.",
+        "operationId": "Auth_CheckResetPwd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/authCheckResetPwdRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/v1/auth/reset-password/verify": {
+      "post": {
+        "summary": "VerifyResetPwd sends a code to reset the password to an email address. This\ncode must be given to the ResetPwd method.",
+        "operationId": "Auth_VerifyResetPwd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/authVerifyResetPwdRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/v1/auth/set-email": {
+      "post": {
+        "summary": "SetEmailInvite sends the verification code to the given email in order to\nchange it.",
+        "operationId": "Auth_SetEmailInvite",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/authSetEmailInviteRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Auth"
+        ],
+        "security": [
+          {
+            "AccessToken": []
+          }
+        ]
+      }
+    },
+    "/v1/auth/set-email/verify": {
+      "post": {
+        "summary": "SetEmail replaces the current user email by another.",
+        "operationId": "Auth_SetEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/authSetEmailRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Auth"
+        ],
+        "security": [
+          {
+            "AccessToken": []
+          }
+        ]
+      }
+    },
+    "/v1/auth/set-locale": {
+      "post": {
+        "summary": "SetLocale replaces the current user locale by another.",
+        "operationId": "Auth_SetLocale",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/authSetLocaleRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Auth"
+        ],
+        "security": [
+          {
+            "AccessToken": []
+          }
+        ]
+      }
+    },
+    "/v1/auth/sign-in": {
+      "post": {
+        "summary": "SignIn returns an access token as well as a refresh token from an email and\na password.",
+        "operationId": "Auth_SignIn",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/authSignInResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/authSignInRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/v1/auth/sign-out": {
+      "post": {
+        "summary": "SignOut deletes the given refresh token. Warning: the issued access tokens\nremain valid.",
+        "operationId": "Auth_SignOut",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/authSignOutRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/v1/auth/sign-up": {
+      "get": {
+        "summary": "CheckSignUp indicates if the site is in \"invitation only\" mode. If it\nreturns true, then everyone can sign-up.",
+        "operationId": "Auth_CheckSignUp",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/authCheckSignUpResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      },
+      "post": {
+        "summary": "InviteSignUp sends an sign-up invitation code to an email address. Only\nadministrators can send such emails.",
+        "operationId": "Auth_InviteSignUp",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/authInviteSignUpRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Auth"
+        ],
+        "security": [
+          {
+            "AccessToken": []
+          }
+        ]
+      }
+    },
+    "/v1/auth/sign-up/{inviteCode}": {
+      "post": {
+        "summary": "Signup creates a new user IF AND ONLY IF the invitation and activation\ncodes are correct. The invitation code is not required if the site IS NOT\nin invite-only mode. The activation code can be obtained through the\nSendSignUp method.",
+        "operationId": "Auth_SignUp",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/authSignInResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "inviteCode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "verifyCode": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "pwd": {
+                  "type": "string"
+                },
+                "locale": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/v1/auth/sign-up/{inviteCode}/verify": {
+      "post": {
+        "summary": "VerifySignUp sends a verification code to an email address. This\nverification code is required to sign-up. If the site is not in invite-only\nmode, then everyone can send a verification code whatever the invitation\ncode they enter.",
+        "operationId": "Auth_VerifySignUp",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "inviteCode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "locale": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Auth"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "authCheckResetPwdRequest": {
+      "type": "object",
+      "properties": {
+        "verifyCode": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "authCheckSignUpResponse": {
+      "type": "object",
+      "properties": {
+        "allowed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "authInviteSignUpRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "locale": {
+          "type": "string"
+        }
+      }
+    },
+    "authNewAccessRequest": {
+      "type": "object",
+      "properties": {
+        "refreshToken": {
+          "$ref": "#/definitions/authRefreshToken"
+        }
+      }
+    },
+    "authNewAccessResponse": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        }
+      }
+    },
+    "authRefreshToken": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "token": {
+          "type": "string",
+          "format": "byte"
+        },
+        "exp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "authResetPwdRequest": {
+      "type": "object",
+      "properties": {
+        "verifyCode": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "pwd": {
+          "type": "string"
+        }
+      }
+    },
+    "authSetEmailInviteRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "locale": {
+          "type": "string"
+        }
+      }
+    },
+    "authSetEmailRequest": {
+      "type": "object",
+      "properties": {
+        "verifyCode": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "authSetLocaleRequest": {
+      "type": "object",
+      "properties": {
+        "locale": {
+          "type": "string"
+        }
+      }
+    },
+    "authSignInRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "pwd": {
+          "type": "string"
+        }
+      }
+    },
+    "authSignInResponse": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "refreshToken": {
+          "$ref": "#/definitions/authRefreshToken"
+        },
+        "AESKey": {
+          "type": "string",
+          "format": "byte"
+        },
+        "user": {
+          "$ref": "#/definitions/authUser"
+        }
+      }
+    },
+    "authSignOutRequest": {
+      "type": "object",
+      "properties": {
+        "refreshToken": {
+          "$ref": "#/definitions/authRefreshToken"
+        }
+      }
+    },
+    "authUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "admin": {
+          "type": "boolean"
+        },
+        "locale": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "authVerifyResetPwdRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "locale": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "AccessToken": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}

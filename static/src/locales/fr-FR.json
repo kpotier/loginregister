@@ -1,0 +1,82 @@
+{
+    "auth": {
+        "changeLocale": "Changer la langue et la région",
+        "changeTheme": "Changer le thème du site",
+
+        "signIn": "Connexion",
+        "signInSub": "Bon retour parmi nous 🥳",
+
+        "signUp": "Inscription",
+        "signUpSub": "Heureux de vous rencontrer 😀",
+
+        "pwdReset": "Mot de passe oublié",
+        "pwdResetSub": "Un oubli peut arriver 🔑",
+
+        "badEmailPwdErr": "L'addresse e-mail ou le mot de passe est incorrect.",
+        "internalErr": "Une erreur interne s'est produite, veuillez réessayer plus tard.",
+        "signUpNotAllowedErr": "L'administrateur a désactivé les inscriptions.",
+        "badPwdErr": "Le mot de passe n'est pas conforme aux exigences requises.",
+        "badPwdAgainErr": "Les mots de passe ne correspondent pas.",
+        "inviteCodeErr": "Le code d'invitation n'est pas ou plus valide pour cet adresse e-mail.",
+        "emailErr": "L'adresse e-mail existe déjà ou n'est pas valide.",
+        "verifyCodeErr": "Le code de vérification n'est pas ou plus valide.",
+        "verifySignUpOK": "Un code de vérification vient d'être envoyé à votre adresse e-mail.",
+
+        "email": "E-mail",
+        "pwd": "Mot de passe",
+        "pwdAgain": "Retapez le mot de passe",
+        "verifyCode": "Code de vérification",
+        "submitSignIn": "Me connecter",
+        "submitSignUp": "Créer mon compte",
+        "submitPwdReset": "Réinitialiser",
+
+        "pwdChecks": {
+            "help": "Le mot de passe doit contenir au moins :",
+            "8runes": "8 caractères",
+            "1upper": "1 majuscule",
+            "1lower": "1 minuscule",
+            "1digit": "1 chiffre",
+            "1special": "1 caractère spécial"
+        },
+
+        "resetPwdLink": "Mot de passe oublié ?",
+        "signUpLink": "Créer un compte",
+        "signInLink": "Se connecter",
+        "verifyCodeLink": "Renvoyer le code",
+        "goBackLink": "Retour",
+        "goBackSignInLink": "Retour vers la page de connexion"
+    },
+
+    "inputPwd": {
+        "reveal": "Révéler le mot de passe",
+        "hide": "Cacher le mot de passe"
+    },
+
+    "err": {
+        "404": ["Erreur 404", "Nous n'avons pas réussi à trouver la page demandée.", "Retour à l'accueil"]
+    },
+
+    "settings": {
+        "title": "Paramètres",
+        "submitChange": "Modifier",
+
+        "pwd": "Modifier le mot de passe",
+        "pwdSub": "Vous souhaitez changer de mot de passe ? 🔑",
+        "currentPwd": "Mot de passe actuel",
+
+        "appearance": "Modifier l'apparence",
+        "appearanceSub": "Au gré des goûts et des couleurs 🍃",
+        "locale": "Langue et région",
+        "theme": "Thème",
+        "themeLight": "Clair",
+        "themeDark": "Sombre",
+
+        "email": "Modifier l'email",
+        "emailSub": "Un changement d'adresse ? 📮",
+
+        "delete": "Supprimer mon compte",
+        "deleteSub":"Nous sommes désolés de vous voir partir. N'oubliez pas qu'il s'agit d'une action irréversible 😔",
+        "deleteConfirm": "Tapez « {delete} » pour confirmer la suppression de votre compte",
+        "submitDelete": "Supprimer définitivement"
+    }
+}

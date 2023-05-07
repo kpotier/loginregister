@@ -1,0 +1,41 @@
+@import "../base/theme";
+@import "../base/mixins";
+@import "../base/functions";
+@import "form";
+
+.select {
+  position: relative;
+
+  .input {
+    cursor: pointer;
+    padding-right: (($form-padding * 2) + $form-size-dropdown);
+  }
+
+  &::after {
+    border-left: 2px solid get-color("primary", 1);
+    border-top: 2px solid get-color("primary", 1);
+    content: "";
+    height: $form-size-dropdown;
+    margin-top: -($form-size-dropdown * 0.75);
+    pointer-events: none;
+    position: absolute;
+    right: $form-box-shadow + $form-padding;
+    top: 50%;
+    transform: rotate(-135deg);
+    transform-origin: center;
+    width: $form-size-dropdown;
+  }
+
+  &.is-loading {
+    color: transparent;
+
+    &::after {
+      @include loading($form-padding-large, get-color("primary", 1));
+
+      margin-top: (-$loading-size * 0.5);
+      position: absolute;
+      right: $loading-size * 0.5;
+      top: 50%;
+    }
+  }
+}

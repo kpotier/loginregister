@@ -1,0 +1,13 @@
+@use "sass:list";
+@import "../base/theme";
+
+.notification {
+  font-size: $font-size-medium;
+  margin-bottom: $gap;
+
+  @each $name, $pair in $colors {
+    &.is-#{$name} {
+      color: list.nth($pair, 1);
+    }
+  }
+}

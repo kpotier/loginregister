@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package bank;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "banking/pkg/pb";
+
+service Bank {
+  rpc Sync(SyncRequest) returns (stream SyncResponse) {
+    option (google.api.http) = {
+      post: "/v1/bank/sync"
+    };
+  }
+
+  rpc SyncAnswer(QuestionAnswer) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/bank/sync/answer"
+      body: "*"
+    };
+  }
+}
+
+message SyncRequest {
+  bytes AES_key = 1;
+}
+
+message QuestionAnswer {
+  string code = 1;
+  string question = 2;
+}
+
+message SyncResponse {
+  string name = 1;
+  message Error {
+    string err_code = 1;
+    string err = 2;
+  }
+  oneof response {
+    Error error = 2;
+    int64 position = 3;
+    QuestionAnswer question = 4;
+  }
+}

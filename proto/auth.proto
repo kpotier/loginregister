@@ -1,0 +1,270 @@
+syntax = "proto3";
+
+package auth;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+// import "google/protobuf/field_mask.proto"; google.protobuf.FieldMask update_mask
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "banking/pkg/pb";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {version: "1.0"};
+  consumes: "application/json";
+  produces: "application/json";
+  security_definitions: {
+    security: {
+      key: "AccessToken";
+      value: {
+        type: TYPE_API_KEY;
+        in: IN_HEADER;
+        name: "Authorization";
+      }
+    }
+  };
+};
+
+service Auth {
+  // SignIn returns an access token as well as a refresh token from an email and
+  // a password.
+  rpc SignIn(SignInRequest) returns (SignInResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/sign-in"
+      body: "*"
+    };
+  }
+
+  // CheckSignUp indicates if the site is in "invitation only" mode. If it
+  // returns true, then everyone can sign-up.
+  rpc CheckSignUp(google.protobuf.Empty) returns (CheckSignUpResponse) {
+    option (google.api.http) = {
+      get: "/v1/auth/sign-up"
+    };
+  }
+
+  // InviteSignUp sends an sign-up invitation code to an email address. Only
+  // administrators can send such emails.
+  rpc InviteSignUp(InviteSignUpRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/auth/sign-up"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "AccessToken";
+          value: {}
+        }
+      }
+    };
+  }
+
+  // VerifySignUp sends a verification code to an email address. This
+  // verification code is required to sign-up. If the site is not in invite-only
+  // mode, then everyone can send a verification code whatever the invitation
+  // code they enter.
+  rpc VerifySignUp(VerifySignUpRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/auth/sign-up/{invite_code}/verify"
+      body: "*"
+    };
+  }
+
+  // Signup creates a new user IF AND ONLY IF the invitation and activation
+  // codes are correct. The invitation code is not required if the site IS NOT
+  // in invite-only mode. The activation code can be obtained through the
+  // SendSignUp method.
+  rpc SignUp(SignUpRequest) returns (SignInResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/sign-up/{invite_code}"
+      body: "*"
+    };
+  }
+
+  // VerifyResetPwd sends a code to reset the password to an email address. This
+  // code must be given to the ResetPwd method.
+  rpc VerifyResetPwd(VerifyResetPwdRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/auth/reset-password/verify"
+      body: "*"
+    };
+  }
+
+  // CheckResetPwd checks if the code given by VerifyResetPwd is valid.
+  rpc CheckResetPwd(CheckResetPwdRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/auth/reset-password/check"
+      body: "*"
+    };
+  }
+
+  // ResetPwd resets the password associated to an email address. A code that
+  // can be obtained through the SendResetPwd must be given in order to verify
+  // the identity of the user.
+  rpc ResetPwd(ResetPwdRequest) returns (SignInResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/reset-password"
+      body: "*"
+    };
+  }
+
+  // NewAccess generates a new access token from a refresh token.
+  rpc NewAccess(NewAccessRequest) returns (NewAccessResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/access"
+      body: "*"
+    };
+  }
+
+  // SignOut deletes the given refresh token. Warning: the issued access tokens
+  // remain valid.
+  rpc SignOut(SignOutRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/auth/sign-out"
+      body: "*"
+    };
+  }
+
+  // SetLocale replaces the current user locale by another.
+  rpc SetLocale(SetLocaleRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/auth/set-locale"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "AccessToken";
+          value: {}
+        }
+      }
+    };
+  }
+
+  // SetEmailInvite sends the verification code to the given email in order to
+  // change it.
+  rpc SetEmailInvite(SetEmailInviteRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/auth/set-email"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "AccessToken";
+          value: {}
+        }
+      }
+    };
+  }
+
+  // SetEmail replaces the current user email by another.
+  rpc SetEmail(SetEmailRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/auth/set-email/verify"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      security: {
+        security_requirement: {
+          key: "AccessToken";
+          value: {}
+        }
+      }
+    };
+  }
+}
+
+message RefreshToken {
+  uint32 user_id = 1;
+  bytes token = 2;
+  google.protobuf.Timestamp exp = 3;
+}
+
+message User {
+  uint32 id = 1;
+  bool admin = 2;
+  string locale = 3;
+  string email = 4;
+}
+
+message SignInRequest {
+  string email = 1;
+  string pwd = 2;
+}
+
+message SignInResponse {
+  string access_token = 1;
+  RefreshToken refresh_token = 2;
+  bytes AES_key = 3;
+  User user = 4;
+}
+
+message CheckSignUpResponse {
+  bool allowed = 1;
+}
+
+message InviteSignUpRequest {
+  string email = 1;
+  string locale = 2;
+}
+
+message VerifySignUpRequest {
+  string invite_code = 1;
+  string email = 2;
+  string locale = 4;
+}
+
+message SignUpRequest {
+  string invite_code = 1;
+  string verify_code = 2;
+  string email = 3;
+  string pwd = 4;
+  string locale = 5;
+}
+
+message VerifyResetPwdRequest {
+  string email = 1;
+  string locale = 2;
+}
+
+message CheckResetPwdRequest {
+  string verify_code = 1;
+  string email = 2;
+}
+
+message ResetPwdRequest {
+  string verify_code = 1;
+  string email = 2;
+  string pwd = 3;
+}
+
+message NewAccessRequest {
+  RefreshToken refresh_token = 1;
+}
+
+message NewAccessResponse {
+  string access_token = 1;
+}
+
+message SignOutRequest {
+  RefreshToken refresh_token = 1;
+}
+
+message SetLocaleRequest {
+  string locale = 1;
+}
+
+message SetEmailInviteRequest {
+  string email = 1;
+  string locale = 2;
+}
+
+message SetEmailRequest {
+  string verify_code = 1;
+  string email = 2;
+}
+
+

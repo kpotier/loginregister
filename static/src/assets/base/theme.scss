@@ -1,0 +1,90 @@
+// Transitions
+$transition: 0.2s;
+$transition-slow: ($transition * 1.3);
+
+// Spacing
+$gap: 1.5rem;
+$gap-smaller: 0.3rem;
+$gap-small: 0.75rem;
+$padding-small: 0.75rem;
+$padding: 1.5rem;
+$padding-large: 2.5rem;
+
+// Border
+$border-width: 1px;
+$border-style: solid;
+$border-radius: 12px;
+
+// Body
+$font-family: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen,
+  ubuntu, cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+$font-size: 16px;
+$font-size-medium: 18px;
+$font-size-large: 20px;
+$font-weight: 400;
+$font-weight-bold: 500;
+$line-height: 1.6;
+
+// Responsivness
+$mobile-small: 375px;
+$mobile: 800px;
+$desktop: 1376px;
+
+// Dark and light theme
+$themes: (
+  "dark": (
+    background: rgb(24 24 24),
+    background-soft: rgb(36 36 36),
+    border: rgb(84 84 84 / 48%),
+    text: rgb(255 255 255 / 87%),
+    text-placeholder: rgb(169 169 169),
+    text-sub: rgb(255 255 255 / 87%),
+  ),
+  "light": (
+    background: rgb(255 255 255),
+    background-soft: rgb(249 249 249),
+    border: rgb(60 60 60 / 12%),
+    text: rgb(24 24 24),
+    text-placeholder: rgb(169 169 169),
+    text-sub: rgb(44 62 80),
+  ),
+);
+
+// Colors
+$light: rgb(255 255 255 / 87%);
+$primary: rgb(218 79 132);
+$primary-dark: rgb(181 38 93);
+$danger: rgb(241 70 104);
+$danger-dark: rgb(240 58 95);
+$success: rgb(72 199 142);
+$success-dark: rgb(58 187 129);
+$colors: (
+  "primary": (
+    $primary,
+    $primary-dark,
+    $light,
+  ),
+  "danger": (
+    $danger,
+    $danger-dark,
+    $light,
+  ),
+  "success": (
+    $success,
+    $success-dark,
+    $light,
+  ),
+);
+
+// Assign dark and light theme.
+:root {
+  @each $color, $value in map-get($themes, "light") {
+    --c-#{$color}: #{$value};
+  }
+}
+
+html.dark {
+  @each $color, $value in map-get($themes, "dark") {
+    --c-#{$color}: #{$value};
+  }
+}

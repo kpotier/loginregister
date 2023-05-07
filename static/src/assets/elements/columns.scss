@@ -1,0 +1,28 @@
+@import "../base/theme";
+
+.columns {
+  display: flex;
+
+  .column {
+    width: 70%;
+
+    &.left {
+      margin-right: $gap;
+      width: 30%;
+    }
+  }
+
+  .element {
+    border: $border-width $border-style var(--c-border);
+    border-radius: $border-radius;
+    overflow: hidden;
+
+    &.has-padding {
+      padding: $padding;
+    }
+  }
+
+  .element + .element {
+    margin-top: $gap;
+  }
+}

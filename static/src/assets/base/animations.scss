@@ -1,0 +1,30 @@
+@import "theme";
+
+$slide-transition: $transition-slow;
+
+.slide-enter-active,
+.slide-leave-active {
+  overflow: hidden;
+  transform: scaleY(1);
+  transform-origin: top;
+  transition: transform $slide-transition, opacity $slide-transition,
+    height $slide-transition;
+  will-change: transform, height, opacity;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  height: 0;
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

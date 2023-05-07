@@ -1,0 +1,97 @@
+@use "sass:list";
+@import "../base/theme";
+@import "../base/functions";
+@import "../base/mixins";
+
+$form-gap: $gap;
+$form-padding: 1rem;
+$form-padding-large: ($form-padding * 1.5);
+$form-border-radius: $border-radius;
+$form-box-shadow: 0.15rem;
+$form-size-dropdown: 0.7rem;
+$form-button-font-weight: 600;
+
+.styleless-input {
+  @extend %control;
+}
+
+.input {
+  &.is-large {
+    padding: $form-padding-large;
+  }
+
+  @extend %control;
+
+  background-color: var(--c-background);
+  border: $border-width $border-style var(--c-border);
+  border-radius: $form-border-radius;
+  outline: none;
+  padding: $form-padding;
+  transition: box-shadow $transition, border-color $transition,
+    background-color $transition, color $transition;
+
+  &::placeholder {
+    color: var(--c-text-placeholder);
+    font-style: italic;
+    opacity: 1;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &:not(:disabled) {
+    &:focus,
+    &:active {
+      border-color: get-color("primary", 1);
+      box-shadow: 0 0 0 $form-box-shadow #{rgba(get-color("primary", 1), 25%)};
+    }
+  }
+
+  @each $name, $pair in $colors {
+    &.is-#{$name} {
+      border-color: list.nth($pair, 1);
+    }
+  }
+}
+
+.button {
+  background-color: get-color("primary", 1);
+  border: none;
+  box-shadow: none !important;
+  color: get-color("primary", 3);
+  cursor: pointer;
+  font-weight: $form-button-font-weight;
+  justify-content: center;
+  transition: transform $transition, background-color $transition;
+
+  &.is-fullwidth {
+    width: 100%;
+  }
+
+  &:not(:disabled) {
+    &:hover,
+    &:focus {
+      background-color: get-color("primary", 2);
+      transform: scale(1.03);
+    }
+
+    &:active {
+      background-color: get-color("primary", 2);
+      transform: scale(1);
+    }
+  }
+
+  &.is-loading {
+    color: transparent;
+
+    &::after {
+      @include loading($form-padding-large, get-color("primary", 3));
+
+      left: calc(50% - $loading-size * 0.5);
+      position: absolute;
+      top: calc(50% - $loading-size * 0.5);
+    }
+  }
+}

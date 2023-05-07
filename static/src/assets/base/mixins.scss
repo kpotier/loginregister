@@ -1,0 +1,25 @@
+@mixin from($device) {
+  @media screen and (min-width: $device) {
+    @content;
+  }
+}
+
+@mixin until($device) {
+  @media screen and (max-width: ($device - 1px)) {
+    @content;
+  }
+}
+
+@mixin loading($size, $color) {
+  animation: spin 500ms infinite linear;
+  border-color: $color;
+  border-radius: $size;
+  border-right-color: transparent;
+  border-style: solid;
+  border-top-color: transparent;
+  border-width: 2px;
+  content: "";
+  display: block;
+  height: $size;
+  width: $size;
+}

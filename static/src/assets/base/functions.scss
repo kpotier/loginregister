@@ -1,0 +1,7 @@
+@use "sass:map";
+@use "sass:list";
+@import "theme";
+
+@function get-color($name, $order) {
+  @return list.nth(map.get($colors, $name), $order);
+}
